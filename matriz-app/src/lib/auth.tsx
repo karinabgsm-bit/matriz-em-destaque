@@ -21,33 +21,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState<string | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
 
-  async function loadProfile(uid: string | null) {
-    if (!uid) {
-      setProfile(null);
-      return;
-    }
-    const { data } = await supabase
-      .from("profiles")
-      .select("id,name,email,role")
-      .eq("id", uid)
-      .maybeSingle();
-    setProfile((data as Profile) ?? null);
-  }
-
+  // IMPORTANTE: nao fazer chamadas ao banco DENTRO do onAuthStateChange
+  // (isso causa deadlock no supabase-js). Aqui so guardamos o userId.
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data }) => {
-      const uid = data.session?.user.id ?? null;
-      setUserId(uid);
-      await loadProfile(uid);
+    supabase.auth.getSession().then(({ data }) => {
+      setUserId(data.session?.user.id ?? null);
       setLoading(false);
     });
-    const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
-      const uid = session?.user.id ?? null;
-      setUserId(uid);
-      await loadProfile(uid);
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserId(session?.user.id ?? null);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
+
+  // O perfil e carregado num efeito separado, reagindo ao userId.
+  useEffect(() => {
+    let active = true;
+    if (userId == null) {
+      setProfile(null);
+      return;
+    }
+    supabase
+      .from("profiles")
+      .select("id,name,email,role")
+      .eq("id", userId)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (active) setProfile((data as Profile) ?? null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [userId]);
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
