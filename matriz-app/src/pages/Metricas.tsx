@@ -126,6 +126,17 @@ function Comparacao({ items }: { items: (ContentWithMetric & { metric: Snapshot 
   const bSave = bestBy((c) => saveRate(c.metric));
   const bFollow = bestBy((c) => followerConversion(c.metric));
   const bReachC = bestBy((c) => bReach(c));
+  const bBest = bestBy((c) => engagement(c.metric));
+  const bWorst = items.filter((c) => engagement(c.metric) != null).sort((a, b) => engagement(a.metric)! - engagement(b.metric)!)[0];
+  const slotAgg = items.reduce((o, c) => {
+    const k = c.scheduled_time || "—";
+    const e = engagement(c.metric);
+    if (e != null) (o[k] = o[k] || []).push(e);
+    return o;
+  }, {} as Record<string, number[]>);
+  const bestSlot = Object.entries(slotAgg)
+    .map(([s, a]) => [s, a.reduce((x, y) => x + y, 0) / a.length] as [string, number])
+    .sort((a, b) => b[1] - a[1])[0];
 
   return (
     <div className="grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
@@ -136,6 +147,11 @@ function Comparacao({ items }: { items: (ContentWithMetric & { metric: Snapshot 
         {row("Maior alcance", bReachC, bReachC ? fmtInt(bReachC.metric.reach) : "")}
       </div></div>
       <div className="panel"><h3>Destaques do período</h3><div className="body">
+        {row("Melhor publicação", bBest, bBest ? fmtPct(engagement(bBest.metric)) + " engaj." : "")}
+        {row("Pior desempenho", bWorst, bWorst ? fmtPct(engagement(bWorst.metric)) + " engaj." : "")}
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "9px 0", borderBottom: "1px solid var(--linha)" }}>
+          <span>Melhor dia/horário</span><b>{bestSlot ? `${bestSlot[0]} (${fmtPct(bestSlot[1])})` : "Não disponível"}</b>
+        </div>
         {row("Maior taxa de compartilhamento", bShare, bShare ? fmtPct(shareRate(bShare.metric)) : "")}
         {row("Maior taxa de salvamento", bSave, bSave ? fmtPct(saveRate(bSave.metric)) : "")}
         {row("Maior conversão em seguidores", bFollow, bFollow ? fmtPct(followerConversion(bFollow.metric)) : "")}
