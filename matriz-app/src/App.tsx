@@ -7,6 +7,8 @@ import Conteudos from "./pages/Conteudos";
 import Quadro from "./pages/Quadro";
 import Metricas from "./pages/Metricas";
 import Integracoes from "./pages/Integracoes";
+import Calendario from "./pages/Calendario";
+import Matriz from "./pages/Matriz";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -30,8 +32,8 @@ export default function App() {
         <Route path="/conteudos" element={<Conteudos />} />
         <Route path="/quadro" element={<Quadro />} />
         <Route path="/metricas" element={<Metricas />} />
-        {editor && <Route path="/calendario" element={<Placeholder title="Calendário" />} />}
-        {editor && <Route path="/matriz" element={<Placeholder title="Matriz estratégica" />} />}
+        {editor && <Route path="/calendario" element={<Calendario />} />}
+        {editor && <Route path="/matriz" element={<Matriz />} />}
         {editor && <Route path="/importadas" element={<Placeholder title="Importados do Instagram" />} />}
         {editor && <Route path="/integracoes" element={<Integracoes />} />}
         {editor && <Route path="/config" element={<Placeholder title="Configurações" />} />}

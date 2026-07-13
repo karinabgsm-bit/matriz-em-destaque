@@ -94,3 +94,23 @@ tr.rowlink:hover{background:#faf9f6;cursor:pointer}
 .tabs button{background:var(--branco);border:1px solid var(--linha);padding:8px 14px;border-radius:8px;font-size:13px}
 .tabs button.active{background:var(--preto);color:#fff;border-color:var(--preto)}
 .center{min-height:100vh;display:flex;align-items:center;justify-content:center;color:var(--texto2)}
+/* Calendário */
+.calnav{display:flex;align-items:center;gap:10px}
+.calgrid{display:grid;grid-template-columns:56px repeat(7,1fr);background:var(--branco);border:1px solid var(--linha);border-radius:12px;overflow:hidden}
+.calgrid .hcell{padding:8px 4px;font-size:11px;text-align:center;border-bottom:1px solid var(--linha);border-left:1px solid var(--linha);font-weight:600;background:#faf9f6}
+.calgrid .hcell.corner{border-left:none}
+.calgrid .tcell{padding:6px;font-size:11px;color:var(--texto2);text-align:right;border-bottom:1px solid var(--linha);background:#faf9f6}
+.calgrid .slot{border-bottom:1px solid var(--linha);border-left:1px solid var(--linha);min-height:52px;padding:3px;position:relative}
+.calgrid .slot.k{cursor:pointer}
+.calgrid .slot.k:hover{background:#fbf7ec}
+.evt{border-radius:6px;padding:4px 6px;color:#fff;font-size:10.5px;font-weight:600;margin-bottom:3px;cursor:pointer;line-height:1.25}
+.evt small{font-weight:400;opacity:.9;display:block}
+.tray{background:var(--branco);border:1px solid var(--linha);border-radius:12px;padding:12px;margin-top:14px}
+.chip{display:inline-flex;gap:6px;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:8px;padding:7px 10px;margin:4px 4px 0 0;font-size:12px;cursor:pointer}
+/* Matriz */
+.mcols{display:grid;gap:14px}
+.mcol{background:#efeee9;border-radius:12px;padding:12px;min-height:120px}
+.mcol h4{margin:0 0 4px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.mcol .cap{font-size:11px;color:var(--texto2);margin-bottom:10px}
+.bar{height:12px;border-radius:6px;background:#e6e3dc;overflow:hidden;margin:6px 0}
+.bar>i{display:block;height:100%;border-radius:6px}
