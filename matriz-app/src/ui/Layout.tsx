@@ -10,6 +10,7 @@ const NAV_EDITOR = [
   ["/conteudos", "☰", "Conteúdos"],
   ["/importadas", "⤓", "Importados IG"],
   ["/metricas", "▲", "Métricas"],
+  ["/relatorio", "▥", "Relatório"],
   ["/integracoes", "⇄", "Integrações"],
   ["/config", "⚙", "Configurações"],
 ];
