@@ -93,8 +93,8 @@ function ResumoMes({ pubs, label }: { pubs: Pub[]; label: string }) {
   const totReach = tot("reach");
   const taxa = generalEngagement(snaps);
 
-  // Post do mês = melhor engajamento
-  const postMes = pubs.filter((c) => engagement(c.metric) != null).sort((a, b) => engagement(b.metric)! - engagement(a.metric)!)[0];
+  // Post do mês = maior alcance (o post que mais se destacou)
+  const postMes = pubs.filter((c) => c.metric.reach != null).sort((a, b) => (b.metric.reach ?? -1) - (a.metric.reach ?? -1))[0];
   const pior = pubs.filter((c) => engagement(c.metric) != null).sort((a, b) => engagement(a.metric)! - engagement(b.metric)!)[0];
   const bestMatrix = (m: string) => pubs.filter((c) => c.matrix_type === m).sort((a, b) => (b.metric.reach ?? -1) - (a.metric.reach ?? -1))[0];
 
