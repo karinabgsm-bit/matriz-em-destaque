@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../lib/auth";
 import { useContent } from "../lib/useContent";
 import { decide, Status, STATUS_LABEL } from "../lib/db";
-import { Topbar, MatrixPill, PermPill } from "../ui/common";
+import { Topbar, MatrixPill, PermPill, FormatBadge } from "../ui/common";
 import ContentPanel from "../ui/ContentPanel";
 
 const EDITOR_COLS: Status[] = ["ideia", "em_producao", "aguardando_aprovacao", "aprovado", "reprovado", "agendado", "publicado", "arquivado"];
@@ -44,7 +44,7 @@ export default function Quadro() {
                     {list.map((c) => (
                       <div key={c.id} className="kcard" onClick={() => setOpenId(c.id)}>
                         <div className="kt">{c.title}</div>
-                        <div style={{ display: "flex", gap: 5, marginBottom: 6 }}><MatrixPill v={c.matrix_type} /><PermPill v={c.permeability} /></div>
+                        <div style={{ display: "flex", gap: 5, marginBottom: 6, flexWrap: "wrap" }}><MatrixPill v={c.matrix_type} /><PermPill v={c.permeability} /><FormatBadge v={c.format} /></div>
                         <div className="foot"><span className="muted">{c.origin}</span><span>{c.scheduled_date ? c.scheduled_date.split("-").reverse().join("/") : "sem data"}</span></div>
                         {!isEditor && st === "aguardando_aprovacao" && (
                           <div style={{ display: "flex", gap: 6, marginTop: 8 }}>

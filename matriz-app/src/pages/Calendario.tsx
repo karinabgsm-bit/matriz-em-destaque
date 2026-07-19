@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../lib/auth";
 import { useContent } from "../lib/useContent";
-import { createContent, STATUS_LABEL } from "../lib/db";
+import { createContent, STATUS_LABEL, FORMAT_LABEL } from "../lib/db";
 import { Topbar, MatrixPill, StatusBadge, dateBR } from "../ui/common";
 import ContentPanel from "../ui/ContentPanel";
 
@@ -51,7 +51,7 @@ export default function Calendario() {
     return (
       <div key={c.id} className="evt" style={{ background: evColor(c.matrix_type) }} onClick={(e) => { e.stopPropagation(); setOpenId(c.id); }}>
         {c.title.slice(0, 24)}{c.title.length > 24 ? "…" : ""}
-        <small>{STATUS_LABEL[c.status]}</small>
+        <small>{c.format ? FORMAT_LABEL[c.format] : STATUS_LABEL[c.status]}</small>
       </div>
     );
   }

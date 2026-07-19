@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useContent } from "../lib/useContent";
-import { Topbar, Empty, StatusBadge } from "../ui/common";
+import { Topbar, Empty, StatusBadge, FormatBadge } from "../ui/common";
 import { ContentWithMetric } from "../lib/db";
 import ContentPanel from "../ui/ContentPanel";
 
@@ -67,6 +67,7 @@ export default function Matriz() {
                 {list.map((c: ContentWithMetric) => (
                   <div key={c.id} className="kcard" onClick={() => setOpenId(c.id)}>
                     <div className="kt">{c.title}</div>
+                    <div style={{ marginBottom: 6 }}><FormatBadge v={c.format} /></div>
                     <div className="foot"><span className="muted">{c.origin}</span><StatusBadge s={c.status} /></div>
                   </div>
                 ))}

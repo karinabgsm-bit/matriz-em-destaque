@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../lib/auth";
 import { useContent } from "../lib/useContent";
 import { createContent, ContentWithMetric } from "../lib/db";
-import { Topbar, Empty, MatrixPill, PermPill, StatusBadge, cover, dateBR } from "../ui/common";
+import { Topbar, Empty, MatrixPill, PermPill, StatusBadge, FormatBadge, cover, dateBR } from "../ui/common";
 import { engagement, fmtPct, fmtInt } from "../lib/metrics";
 import ContentPanel from "../ui/ContentPanel";
 
@@ -44,7 +44,7 @@ export default function Conteudos() {
         ) : (
           <div className="panel"><div className="body" style={{ padding: 0, overflowX: "auto" }}>
             <table>
-              <thead><tr><th></th><th>Título</th><th>Data</th><th>Status</th><th>Matriz</th><th>Perm.</th><th>Alcance</th><th>Engaj.</th></tr></thead>
+              <thead><tr><th></th><th>Título</th><th>Data</th><th>Status</th><th>Formato</th><th>Matriz</th><th>Perm.</th><th>Alcance</th><th>Engaj.</th></tr></thead>
               <tbody>
                 {list.map((c: ContentWithMetric) => (
                   <tr key={c.id} className="rowlink" onClick={() => setOpenId(c.id)}>
@@ -52,6 +52,7 @@ export default function Conteudos() {
                     <td><b>{c.title}</b><div className="muted" style={{ fontSize: 11 }}>{c.origin}{c.is_unplanned ? " · não planejada" : ""}</div></td>
                     <td>{dateBR(c.scheduled_date)}</td>
                     <td><StatusBadge s={c.status} /></td>
+                    <td><FormatBadge v={c.format} /></td>
                     <td><MatrixPill v={c.matrix_type} /></td>
                     <td><PermPill v={c.permeability} /></td>
                     <td>{fmtInt(c.metric?.reach ?? null)}</td>
