@@ -9,6 +9,7 @@ import Metricas from "./pages/Metricas";
 import Integracoes from "./pages/Integracoes";
 import Calendario from "./pages/Calendario";
 import Matriz from "./pages/Matriz";
+import Relatorio from "./pages/Relatorio";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/metricas" element={<Metricas />} />
         {editor && <Route path="/calendario" element={<Calendario />} />}
         {editor && <Route path="/matriz" element={<Matriz />} />}
+        {editor && <Route path="/relatorio" element={<Relatorio />} />}
         {editor && <Route path="/importadas" element={<Placeholder title="Importados do Instagram" />} />}
         {editor && <Route path="/integracoes" element={<Integracoes />} />}
         {editor && <Route path="/config" element={<Placeholder title="Configurações" />} />}
