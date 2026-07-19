@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Content, Matrix, Perm, Status, STATUS_LABEL } from "../lib/db";
+import { Content, Matrix, Perm, Status, STATUS_LABEL, FORMAT_LABEL } from "../lib/db";
 
 export function Topbar({ title, right }: { title: string; right?: ReactNode }) {
   return (
@@ -25,6 +25,10 @@ export function PermPill({ v }: { v: Perm }) {
 }
 export function StatusBadge({ s }: { s: Status }) {
   return <span className="badge">{STATUS_LABEL[s]}</span>;
+}
+export function FormatBadge({ v }: { v: string | null }) {
+  if (!v) return <span className="badge" style={{ opacity: 0.6 }}>sem formato</span>;
+  return <span className="badge" style={{ background: "#efe9f6", color: "#6a4794", borderColor: "#ddd0ee" }}>{FORMAT_LABEL[v] ?? v}</span>;
 }
 
 export function dateBR(d: string | null) {

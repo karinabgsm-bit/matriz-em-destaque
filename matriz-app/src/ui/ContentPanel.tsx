@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../lib/auth";
-import { ContentWithMetric, decide, updateContent, Status, STATUS_LABEL, STATUS_ORDER } from "../lib/db";
-import { MatrixPill, PermPill, StatusBadge, dateBR } from "./common";
+import { ContentWithMetric, decide, updateContent, Status, STATUS_LABEL, STATUS_ORDER, FORMAT_OPTIONS } from "../lib/db";
+import { MatrixPill, PermPill, StatusBadge, FormatBadge, dateBR } from "./common";
 import { interactions, engagement, retention, repetition, fmtInt, fmtPct, fmtNum } from "../lib/metrics";
 
 const SLOTS = ["10h", "12h", "14h", "18h", "20h", "22h"];
@@ -53,6 +53,7 @@ export default function ContentPanel({
           <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8, flexWrap: "wrap" }}>
             <MatrixPill v={item.matrix_type} />
             <PermPill v={item.permeability} />
+            <FormatBadge v={item.format} />
             <StatusBadge s={item.status} />
             <span className="spacer" />
             {busy && <span className="muted" style={{ fontSize: 11 }}>salvando…</span>}
@@ -146,6 +147,7 @@ export default function ContentPanel({
             {select("Modelagem", "matrix_type", [["hero", "Hero"], ["hub", "Hub"], ["help", "Help"]], true)}
             {select("Permeabilidade", "permeability", [["aderencia", "Aderência"], ["profundidade", "Profundidade"]], true)}
           </div>
+          {select("Formato", "format", FORMAT_OPTIONS, true)}
           <div className="two">{field("Público", "audience")}{field("Objetivo", "objective")}</div>
           {area("CTA", "cta")}
         </>
