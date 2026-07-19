@@ -35,12 +35,30 @@ export const STATUS_ORDER: Status[] = [
 export type Matrix = "hero" | "hub" | "help" | null;
 export type Perm = "aderencia" | "profundidade" | null;
 
+export const FORMAT_LABEL: Record<string, string> = {
+  reel: "Reel",
+  carrossel: "Carrossel",
+  foto: "Post estático",
+  story: "Story",
+  video: "Vídeo",
+  tvprog: "Programa TV",
+};
+export const FORMAT_OPTIONS: [string, string][] = [
+  ["reel", "Reel"],
+  ["carrossel", "Carrossel"],
+  ["foto", "Post estático"],
+  ["story", "Story"],
+  ["video", "Vídeo"],
+  ["tvprog", "Programa TV"],
+];
+
 export type Content = {
   id: string;
   title: string;
   description: string | null;
   matrix_type: Matrix;
   permeability: Perm;
+  format: string | null;
   audience: string | null;
   objective: string | null;
   cta: string | null;
